@@ -15,7 +15,7 @@ elasticsearch-users useradd <username> -p <password> -r superuser
 
 # 2. clone the repository
 
-# 3. Run searchapp.py
+# 3. Run the file searchapp.py
 
-However, for other client with Linux or Mac, there is a few changes in the starting of the elastic server, kindly do some search on google.
+However, for other client with Linux or Mac operating system, there is some few changes in the starting of the elastic server, kindly do some search on google.
 
