@@ -23,7 +23,7 @@ else:
 
 
 
-def search(input_keyword):
+def search(input_keyword, selected_entities = None):
     model = SentenceTransformer('all-mpnet-base-v2')
     vector_of_input_keyword = model.encode(input_keyword)
 
@@ -38,8 +38,21 @@ def search(input_keyword):
                         , source=["ProductName","Description"]
                         )
     results = res["hits"]["hits"]
-
+    # we would build the query with entity filters
     return results
+
+def get_entity_facets():
+    agg_query = {
+        "size": 0,
+        "aggs": {
+            "entities": {
+                "terms": {"field": "EntityText", "size": 10}
+            }
+        }
+    }
+    res = es.search(index="clothing", body=agg_query)
+    entities = [bucket["key"] for bucket in res["aggregations"]["entities"]["buckets"]]
+    return entities
 
 def main():
     st.title("Helpful Engineering Organization")
@@ -48,7 +61,7 @@ def main():
     search_query = st.text_input("Enter your search query")
 
     # Button: User triggers the search
-    if st.button("Search"):
+    if st.button("Search"): # add UI components to display entity facets
         if search_query:
             # Perform the search and get results
             results = search(search_query)

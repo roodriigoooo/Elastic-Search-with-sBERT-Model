@@ -27,6 +27,15 @@ mapping = {
         "PrimaryColor":{
         "type":"text"
     },
+        "EntityText": {
+            "type":"keyword" #new properties for entities
+    },
+        "EntityType": {
+            "type":"keyword"
+    },
+        "EntityURI": {
+            "type": "keyword" # add whatever else would be necessary
+    },
      
         "VectorDescription":{
         "type":"dense_vector",
